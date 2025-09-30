@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Talento Lab</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header>
+        <img src="../images/logo.png" alt="Logo de Talento Lab" width="150">
+        <h1>Talento Lab</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="../pages/productos.html">Productos</a></li>
+            <li><a href="../pages/servicios.html">Servicios</a></li>
+            <li><a href="../pages/contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <h2>Formulario de Contacto</h2>
+        
+        <form action="https://formspree.io/f/mzzaqdbq" method="POST">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+            
+            <button type="submit">Enviar</button>
+        </form>
+
+<section>
+    <h2>Mensajes Recibidos</h2>
+    <table>
+        <caption>Registro de contactos recientes</caption>
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Mensaje</th>
+                <th scope="col">Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Ana García</td>
+                <td>ana@ejemplo.com</td>
+                <td>Consulta sobre cursos</td>
+                <td>Respondido</td>
+            </tr>
+            <tr>
+                <td>Carlos López</td>
+                <td>carlos@ejemplo.com</td>
+                <td>Solicitud de información</td>
+                <td>Pendiente</td>
+            </tr>
+            <tr>
+                <td rowspan="2">Mensajes pendientes de respuesta</td>
+                <td colspan="3">2 mensajes en espera</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </main>
+    
+    <footer>
+        <p>© 2024 Talento Lab. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
