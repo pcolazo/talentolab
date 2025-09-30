@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos - Talento Lab</title>
     <link rel="stylesheet" href="../styles.css">
+    <!-- Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <img src="../images/logo.png" alt="Logo de Talento Lab" width="150">
+        <img src="../images/logo.jpeg" alt="Logo de Talento Lab" width="150">
         <h1>Talento Lab</h1>
     </header>
     
@@ -23,7 +25,73 @@
     
     <main>
         <h2>Nuestros Productos</h2>
-        <p>Contenido de productos próximamente...</p>
+        
+        <section class="productos-grid">
+            <!-- Producto 1 -->
+            <article class="producto-card">
+                <div class="producto-img">
+                    <i class="fas fa-laptop-code" style="font-size: 48px; color: #3498db;"></i>
+                </div>
+                <h3>Curso de HTML y CSS</h3>
+                <p>Aprende a crear sitios web desde cero con las tecnologías fundamentales del desarrollo front-end.</p>
+                <div class="producto-precio">$9.999</div>
+                <button class="btn-comprar">
+                    <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                </button>
+            </article>
+            
+            <!-- Producto 2 -->
+            <article class="producto-card">
+                <div class="producto-img">
+                    <i class="fab fa-js-square" style="font-size: 48px; color: #f1c40f;"></i>
+                </div>
+                <h3>Curso de JavaScript</h3>
+                <p>Domina la programación web interactiva y dinámica con el lenguaje más popular del front-end.</p>
+                <div class="producto-precio">$12.999</div>
+                <button class="btn-comprar">
+                    <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                </button>
+            </article>
+            
+            <!-- Producto 3 -->
+            <article class="producto-card">
+                <div class="producto-img">
+                    <i class="fab fa-react" style="font-size: 48px; color: #61dafb;"></i>
+                </div>
+                <h3>Curso de React</h3>
+                <p>Desarrolla aplicaciones modernas con la librería más demandada del mercado laboral.</p>
+                <div class="producto-precio">$15.999</div>
+                <button class="btn-comprar">
+                    <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                </button>
+            </article>
+        </section>
+        
+        <!-- Sección de Reseñas (Clase 07) -->
+        <section class="resenas">
+            <h2 style="grid-column: 1 / -1; text-align: center;">Lo que dicen nuestros estudiantes</h2>
+            
+            <article class="resena-card">
+                <div class="resena-cliente">María González</div>
+                <div class="resena-texto">
+                    "El curso de HTML y CSS superó mis expectativas. Ahora puedo crear mis propias páginas web desde cero."
+                </div>
+            </article>
+            
+            <article class="resena-card">
+                <div class="resena-cliente">Carlos Rodríguez</div>
+                <div class="resena-texto">
+                    "JavaScript era un misterio para mí, pero con Talento Lab logré entender los conceptos fundamentales."
+                </div>
+            </article>
+            
+            <article class="resena-card">
+                <div class="resena-cliente">Ana López</div>
+                <div class="resena-texto">
+                    "Increíble metodología de aprendizaje. Los proyectos prácticos me ayudaron a construir un portafolio real."
+                </div>
+            </article>
+        </section>
     </main>
     
     <footer>

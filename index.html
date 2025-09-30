@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Talento Lab - Inicio</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <img src="images/logo.png" alt="Logo de Talento Lab" width="150">
+        <img src="images/logo.jpeg" alt="Logo de Talento Lab" width="150">
         <h1>Talento Lab</h1>
         <h2>Formando desarrolladores del futuro</h2>
     </header>
@@ -30,11 +32,36 @@
         
         <section>
             <h2>Video de presentación</h2>
-            <video controls poster="images/video-preview.jpg" width="600">
+            <video controls poster="images/video-preview.webp" width="600">
                 <source src="videos/presentacion.mp4" type="video/mp4">
-                <track src="subtitles/subtitulos.vtt" kind="subtitles" srclang="es" label="Español">
                 Tu navegador no soporta la reproducción de video.
             </video>
+        </section>
+        
+        <!-- Sección de Reseñas en página principal -->
+        <section class="resenas">
+            <h2 style="grid-column: 1 / -1; text-align: center;">Testimonios de Nuestros Estudiantes</h2>
+            
+            <article class="resena-card">
+                <div class="resena-cliente">Laura Martínez</div>
+                <div class="resena-texto">
+                    "Gracias a Talento Lab conseguí mi primer trabajo como desarrolladora front-end en 3 meses."
+                </div>
+            </article>
+            
+            <article class="resena-card">
+                <div class="resena-cliente">Diego Herrera</div>
+                <div class="resena-texto">
+                    "La metodología práctica me permitió aprender haciendo. Los proyectos son reales y muy bien guiados."
+                </div>
+            </article>
+            
+            <article class="resena-card">
+                <div class="resena-cliente">Sofía Chen</div>
+                <div class="resena-texto">
+                    "El apoyo de los mentores fue fundamental. Siempre disponibles para resolver dudas y guiarme."
+                </div>
+            </article>
         </section>
     </main>
     
