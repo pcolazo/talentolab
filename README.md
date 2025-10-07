@@ -19,3 +19,11 @@ El objetivo principal es aprender a crear la estructura básica de una página w
 - Implementar interactividad con JavaScript
 - Crear formularios de contacto
 - Incorporar elementos multimedia
+
+## Para levantar el sitio localmente en Docker con Docker Compose
+- Prereq https://docs.docker.com/compose/install/
+- git clone https://github.com/pcolazo/talentolab.git
+- cd talentolab
+- docker compose build --no-cache (Constuyo la imagen)
+- docker compose up -d (Levanto el contenedor)
+- Accedo al sitio http://localhost:8080
