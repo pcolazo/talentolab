@@ -1,4 +1,4 @@
-# Talento Lab - Proyecto Front-End
+# Talento Lab - Proyecto Front-End - https://pcolazo.github.io/talentolab/
 
 ## Descripción
 Este proyecto es una página web básica desarrollada como parte del curso de Front-End de Talento Tech. La página está estructurada con HTML semántico y utiliza las etiquetas `<header>`, `<nav>`, `<main>` y `<footer>` para organizar el contenido.
@@ -13,12 +13,9 @@ El objetivo principal es aprender a crear la estructura básica de una página w
 ## Tecnologías utilizadas
 - HTML5
 - Etiquetas semánticas
-
-## Próximos pasos
-- Agregar estilos con CSS
-- Implementar interactividad con JavaScript
-- Crear formularios de contacto
-- Incorporar elementos multimedia
+- CSS
+- google Fonts
+- formspree
 
 ## Para levantar el sitio localmente en Docker con Docker Compose
 - Prereq https://docs.docker.com/compose/install/
