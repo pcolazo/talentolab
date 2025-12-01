@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             mensajesTable.insertBefore(nuevaFila, mensajesTable.firstChild);
             
             // Limpiar formulario
-            form.reset();
+            //form.reset();
             
             // Mostrar mensaje de éxito
             mostrarMensaje('¡Mensaje enviado! Te contactaremos pronto.', 'success');
@@ -51,6 +51,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Simular envío real después de 2 segundos
             setTimeout(() => {
                 form.submit(); // Envío real a Formspree
+            // Limpiar formulario
+            form.reset();
             }, 2000);
         } else {
             mostrarMensaje('Por favor, corrige los errores en el formulario.', 'error');

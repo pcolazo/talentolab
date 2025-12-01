@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const formularioResena = document.createElement('div');
     formularioResena.innerHTML = `
         <div style="margin-top:40px; padding:20px; background:#f8f9fa; border-radius:10px;">
-            <h3>Deja tu reseña</h3>
+            <h2>Deja tu reseña</h2>
             <form id="nueva-resena">
                 <input type="text" placeholder="Tu nombre" required style="width:100%; padding:10px; margin-bottom:10px;">
                 <textarea placeholder="Tu experiencia..." rows="3" required style="width:100%; padding:10px; margin-bottom:10px;"></textarea>
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (index < num) {
                 estrella.style.color = '#f1c40f';
             } else {
-                estrella.style.color = '#300aedff';
+                estrella.style.color = '#ddddddff';
             }
         });
     }
