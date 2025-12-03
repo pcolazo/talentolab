@@ -1,342 +1,110 @@
-// api-productos.js - Consumo de API FakeStore con filtros
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('API Productos cargado');
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Online - Talento Lab</title>
+    <meta name="description" content="Productos de tecnología y electrónica consumidos desde API externa. Catálogo dinámico de productos reales.">
+    <meta name="keywords" content="tecnología, electrónica, Tienda Online, compras online, tienda virtual, API REST">
+    <meta name="author" content="Talento Lab">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <img src="../images/logo.jpeg" alt="Logo de Talento Lab" width="150">
+        <h1>Talento Lab</h1>
+        <h2>Formando desarrolladores del futuro</h2>
+    </header>
     
-    // Elementos del DOM
-    const productosContainer = document.getElementById('productos-api-container');
-    const mensajeCargando = document.getElementById('mensaje-cargando');
-    const mensajeSinProductos = document.getElementById('mensaje-sin-productos');
-    const recargarBtn = document.getElementById('recargar-productos');
-    const buscador = document.getElementById('buscador-api');
-    const ordenPrecio = document.getElementById('orden-precio');
-    const botonesFiltro = document.querySelectorAll('button[data-categoria]');
+    <nav>
+        <ul>
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="productos.html">Nuestros Cursos</a></li>
+            <li><a href="api-productos.html" class="active">Tienda Online</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
     
-    // Variables
-    let productosOriginales = [];
-    let productosFiltrados = [];
-    let categoriaActiva = 'todos';
-    
-    // URL de la API (FakeStore API)
-    const API_URL = 'https://fakestoreapi.com/products';
-    
-    // Función principal para cargar productos
-    async function cargarProductos() {
-        try {
-            mostrarCargando();
-            
-            const respuesta = await fetch(API_URL);
-            
-            if (!respuesta.ok) {
-                throw new Error(`Error ${respuesta.status}: ${respuesta.statusText}`);
-            }
-            
-            const productos = await respuesta.json();
-            productosOriginales = productos;
-            
-            // Aplicar filtro inicial (tecnología por defecto)
-            aplicarFiltro('electronics');
-            
-            // Configurar eventos
-            configurarEventos();
-            
-            ocultarCargando();
-            
-        } catch (error) {
-            console.error('Error al cargar productos:', error);
-            mostrarError(error.message);
-        }
-    }
-    
-    // Mostrar estado de carga
-    function mostrarCargando() {
-        mensajeCargando.style.display = 'block';
-        mensajeSinProductos.style.display = 'none';
-        productosContainer.innerHTML = '';
-    }
-    
-    // Ocultar estado de carga
-    function ocultarCargando() {
-        mensajeCargando.style.display = 'none';
-    }
-    
-    // Mostrar error
-    function mostrarError(mensaje) {
-        mensajeCargando.innerHTML = `
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-triangle"></i>
-                <h5>Error al cargar productos</h5>
-                <p>${mensaje}</p>
-                <button onclick="cargarProductos()" class="btn btn-sm btn-outline-primary">
-                    Reintentar
+    <main class="container mt-4">
+        <h2 class="text-center mb-4">Productos de Tecnología (API Externa)</h2>
+        
+        <!-- Filtros Rápidos -->
+        <div class="mb-4">
+            <h4 class="mb-3">Filtrar por categoría:</h4>
+            <div class="d-flex flex-wrap gap-2 mb-3">
+                <button class="btn btn-outline-primary active" data-categoria="todos">
+                    <i class="fas fa-border-all"></i> Todos
+                </button>
+                <button class="btn btn-outline-primary" data-categoria="electronics">
+                    <i class="fas fa-laptop"></i> Tecnología
+                </button>
+                <button class="btn btn-outline-primary" data-categoria="jewelery">
+                    <i class="fas fa-gem"></i> Joyas
+                </button>
+                <button class="btn btn-outline-primary" data-categoria="men's clothing">
+                    <i class="fas fa-tshirt"></i> Ropa Hombre
+                </button>
+                <button class="btn btn-outline-primary" data-categoria="women's clothing">
+                    <i class="fas fa-tshirt"></i> Ropa Mujer
                 </button>
             </div>
-        `;
-    }
-    
-    // Aplicar filtro por categoría
-    function aplicarFiltro(categoria) {
-        categoriaActiva = categoria;
+        </div>
         
-        if (categoria === 'todos') {
-            productosFiltrados = [...productosOriginales];
-        } else {
-            productosFiltrados = productosOriginales.filter(
-                producto => producto.category === categoria
-            );
-        }
-        
-        // Actualizar botones activos
-        botonesFiltro.forEach(boton => {
-            if (boton.dataset.categoria === categoria) {
-                boton.classList.add('active');
-                boton.classList.remove('btn-outline-primary');
-                boton.classList.add('btn-primary');
-            } else {
-                boton.classList.remove('active');
-                boton.classList.remove('btn-primary');
-                boton.classList.add('btn-outline-primary');
-            }
-        });
-        
-        // Aplicar búsqueda si hay texto
-        const terminoBusqueda = buscador.value.trim();
-        if (terminoBusqueda) {
-            buscarProductos(terminoBusqueda);
-        } else {
-            renderizarProductos(productosFiltrados);
-        }
-    }
-    
-    // Buscar productos por texto
-    function buscarProductos(termino) {
-        const terminoLower = termino.toLowerCase();
-        
-        const productosBuscados = productosFiltrados.filter(producto => {
-            return producto.title.toLowerCase().includes(terminoLower) ||
-                   producto.description.toLowerCase().includes(terminoLower);
-        });
-        
-        renderizarProductos(productosBuscados);
-    }
-    
-    // Ordenar productos
-    function ordenarProductos(orden) {
-        let productosOrdenados = [...productosFiltrados];
-        
-        switch (orden) {
-            case 'precio-asc':
-                productosOrdenados.sort((a, b) => a.price - b.price);
-                break;
-            case 'precio-desc':
-                productosOrdenados.sort((a, b) => b.price - a.price);
-                break;
-            case 'rating':
-                productosOrdenados.sort((a, b) => b.rating.rate - a.rating.rate);
-                break;
-            default:
-                // Orden original
-                productosOrdenados.sort((a, b) => a.id - b.id);
-        }
-        
-        renderizarProductos(productosOrdenados);
-    }
-    
-    // Renderizar productos en el DOM
-    function renderizarProductos(productos) {
-        productosContainer.innerHTML = '';
-        
-        if (productos.length === 0) {
-            mensajeSinProductos.style.display = 'block';
-            return;
-        }
-        
-        mensajeSinProductos.style.display = 'none';
-        
-        productos.forEach(producto => {
-            const productoHTML = crearTarjetaProducto(producto);
-            productosContainer.innerHTML += productoHTML;
-        });
-        
-        // Agregar eventos a los botones de agregar
-        agregarEventosCarrito();
-    }
-    
-    // Crear tarjeta de producto HTML
-    function crearTarjetaProducto(producto) {
-        // Limitar descripción
-        const descripcionCorta = producto.description.length > 80 
-            ? producto.description.substring(0, 80) + '...' 
-            : producto.description;
-        
-        // Crear estrellas de rating
-        let estrellasHTML = '';
-        const rating = Math.round(producto.rating.rate);
-        for (let i = 1; i <= 5; i++) {
-            estrellasHTML += i <= rating 
-                ? '<i class="fas fa-star text-warning"></i>' 
-                : '<i class="far fa-star text-muted"></i>';
-        }
-        
-        return `
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-img-top text-center p-3" style="height: 200px; background: #f8f9fa;">
-                        <img src="${producto.image}" 
-                             alt="${producto.title}"
-                             class="img-fluid h-100"
-                             style="object-fit: contain;"
-                             onerror="this.onerror=null; this.src='https://via.placeholder.com/300x300/e0e0e0/666666?text=Producto'">
-                    </div>
-                    <div class="card-body d-flex flex-column">
-                        <div class="mb-2">
-                            <span class="badge bg-info">${producto.category}</span>
-                        </div>
-                        <h5 class="card-title" style="height: 48px; overflow: hidden;">${producto.title}</h5>
-                        <p class="card-text text-muted small flex-grow-1">
-                            ${descripcionCorta}
-                        </p>
-                        <div class="mt-auto">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="h5 text-primary mb-0">$${producto.price.toFixed(2)}</span>
-                                <div>
-                                    <small class="text-warning">${estrellasHTML}</small>
-                                    <small class="text-muted">(${producto.rating.count})</small>
-                                </div>
-                            </div>
-                            <button class="btn btn-success w-100 btn-agregar-api" 
-                                    data-id="${producto.id}"
-                                    data-nombre="${producto.title}"
-                                    data-precio="${producto.price}"
-                                    data-imagen="${producto.image}">
-                                <i class="fas fa-cart-plus me-2"></i> Agregar al Carrito
-                            </button>
-                        </div>
-                    </div>
+        <!-- Controles de búsqueda -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    <input type="text" id="buscador-api" class="form-control" placeholder="Buscar productos...">
                 </div>
             </div>
-        `;
-    }
+            <div class="col-md-6">
+                <select id="orden-precio" class="form-select">
+                    <option value="">Ordenar por...</option>
+                    <option value="precio-asc">Precio: Menor a Mayor</option>
+                    <option value="precio-desc">Precio: Mayor a Menor</option>
+                    <option value="rating">Mejor Valorados</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Mensaje de carga -->
+        <div id="mensaje-cargando" class="text-center p-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+            </div>
+            <h4 class="mt-3">Cargando productos desde la API...</h4>
+        </div>
+        
+        <!-- Contenedor de productos -->
+        <div class="row" id="productos-api-container">
+            <!-- Los productos se cargarán aquí -->
+        </div>
+        
+        <!-- Mensaje si no hay productos -->
+        <div id="mensaje-sin-productos" class="text-center p-5" style="display: none;">
+            <i class="fas fa-box-open fa-4x text-muted mb-3"></i>
+            <h4>No se encontraron productos</h4>
+            <p class="text-muted">Intenta cambiar los filtros o recargar la página</p>
+            <button id="recargar-productos" class="btn btn-primary">
+                <i class="fas fa-redo"></i> Recargar productos
+            </button>
+        </div>
+    </main>
     
-    // Agregar eventos para agregar al carrito
-    function agregarEventosCarrito() {
-        document.querySelectorAll('.btn-agregar-api').forEach(boton => {
-            boton.addEventListener('click', function() {
-                const producto = {
-                    id: this.dataset.id,
-                    nombre: this.dataset.nombre,
-                    precio: parseFloat(this.dataset.precio),
-                    imagen: this.dataset.imagen,
-                    categoria: 'API Product',
-                    tipo: 'api'
-                };
-                
-                // Guardar en LocalStorage (simulación de carrito)
-                agregarAlCarrito(producto);
-                
-                // Feedback visual
-                const originalTexto = this.innerHTML;
-                this.innerHTML = '<i class="fas fa-check me-2"></i> ¡Agregado!';
-                this.disabled = true;
-                this.classList.remove('btn-success');
-                this.classList.add('btn-primary');
-                
-                setTimeout(() => {
-                    this.innerHTML = originalTexto;
-                    this.disabled = false;
-                    this.classList.remove('btn-primary');
-                    this.classList.add('btn-success');
-                }, 1500);
-            });
-        });
-    }
+    <footer>
+        <p>© 2025 Talento Lab. Todos los derechos reservados.</p>
+    </footer>
     
-    // Función para agregar al carrito (simulación)
-    function agregarAlCarrito(producto) {
-        // Obtener carrito actual
-        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-        
-        // Verificar si el producto ya está en el carrito
-        const existe = carrito.find(item => item.id === producto.id && item.tipo === 'api');
-        
-        if (existe) {
-            existe.cantidad = (existe.cantidad || 1) + 1;
-        } else {
-            producto.cantidad = 1;
-            carrito.push(producto);
-        }
-        
-        // Guardar en LocalStorage
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-        
-        // Mostrar notificación
-        mostrarNotificacion(`"${producto.nombre}" agregado al carrito`);
-        
-        //if (typeof actualizarCarrito === "function") {
-        //actualizarCarrito();
-        // }
-        // ACTUALIZAR CONTADOR DEL CARRITO MANUALMENTE
-        const contador = document.getElementById('contador-carrito');
-        if (contador) {
-            // Releer carrito desde localStorage
-            const carritoLS = JSON.parse(localStorage.getItem('carrito')) || [];
-            const total = carritoLS.reduce((sum, item) => sum + (item.cantidad || 1), 0);
-            contador.textContent = total;
-        }
-    }
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    // Mostrar notificación
-    function mostrarNotificacion(mensaje) {
-        // Crear elemento de notificación
-        const notificacion = document.createElement('div');
-        notificacion.className = 'alert alert-success alert-dismissible fade show position-fixed';
-        notificacion.style.cssText = `
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            min-width: 300px;
-        `;
-        notificacion.innerHTML = `
-            <i class="fas fa-check-circle me-2"></i>
-            ${mensaje}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
-        
-        document.body.appendChild(notificacion);
-        
-        // Auto-eliminar después de 3 segundos
-        setTimeout(() => {
-            notificacion.remove();
-        }, 3000);
-    }
-    
-    // Configurar todos los eventos
-    function configurarEventos() {
-        // Botones de filtro
-        botonesFiltro.forEach(boton => {
-            boton.addEventListener('click', function() {
-                aplicarFiltro(this.dataset.categoria);
-            });
-        });
-        
-        // Buscador
-        buscador.addEventListener('input', function() {
-            buscarProductos(this.value);
-        });
-        
-        // Ordenamiento
-        ordenPrecio.addEventListener('change', function() {
-            ordenarProductos(this.value);
-        });
-        
-        // Botón recargar
-        if (recargarBtn) {
-            recargarBtn.addEventListener('click', cargarProductos);
-        }
-    }
-    
-    // Iniciar carga de productos
-    cargarProductos();
-    
-    // Exponer función global para reintentar
-    window.cargarProductos = cargarProductos;
-});
+    <!-- Scripts mios -->
+<script src="../scripts/api-productos.js"></script>
+<script src="../scripts/carrito.js"></script>
+</body>
+</html>
