@@ -432,3 +432,87 @@ video {
     from { transform: translateX(0); opacity: 1; }
     to { transform: translateX(100%); opacity: 0; }
 }
+
+/* ===== ESTILOS PARA PÁGINA API PRODUCTOS ===== */
+
+/* Tarjetas de productos API */
+.card-img-top {
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+/* Botones de filtro */
+button[data-categoria].active {
+    background-color: #3498db !important;
+    border-color: #3498db !important;
+    color: white !important;
+}
+
+/* Badge de categoría */
+.badge.bg-info {
+    background: linear-gradient(135deg, #3498db, #2980b9) !important;
+}
+
+/* Estrellas de rating */
+.fa-star.text-warning {
+    animation: starPulse 2s infinite;
+}
+
+@keyframes starPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Botón agregar API */
+.btn-agregar-api {
+    background: linear-gradient(135deg, #2ecc71, #27ae60) !important;
+    border: none !important;
+}
+
+.btn-agregar-api:hover {
+    background: linear-gradient(135deg, #27ae60, #219653) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3) !important;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .card-title {
+        font-size: 1rem;
+    }
+    
+    button[data-categoria] {
+        font-size: 0.85rem;
+        padding: 5px 10px;
+    }
+}
+
+/* Animación para el spinner de carga */
+.spinner-border {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Estilos para la notificación */
+.alert.position-fixed {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
