@@ -270,6 +270,18 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Mostrar notificación
         mostrarNotificacion(`"${producto.nombre}" agregado al carrito`);
+        
+        //if (typeof actualizarCarrito === "function") {
+        //actualizarCarrito();
+        // }
+        // ACTUALIZAR CONTADOR DEL CARRITO MANUALMENTE
+        const contador = document.getElementById('contador-carrito');
+        if (contador) {
+            // Releer carrito desde localStorage
+            const carritoLS = JSON.parse(localStorage.getItem('carrito')) || [];
+            const total = carritoLS.reduce((sum, item) => sum + (item.cantidad || 1), 0);
+            contador.textContent = total;
+        }
     }
     
     // Mostrar notificación
